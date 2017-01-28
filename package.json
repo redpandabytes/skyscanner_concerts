@@ -1,0 +1,26 @@
+{
+  "name": "skyscanner_concerts",
+  "version": "0.0.0",
+  "description": "init commit",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nattyxd/skyscanner_concerts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nattyxd/skyscanner_concerts/issues"
+  },
+  "dependencies": {
+    "async": "^2.1.4",
+    "express": "^4.14.0",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "url": "^0.11.0",
+    "util": "^0.10.3"
+  }
+}
