@@ -1,26 +1,20 @@
 /**
 ========================================================================================================
-  Private
+  Generic Imports
 ========================================================================================================
 **/
 
-
+var path = require('path');
+var dir = require('../../config/dir.js');
+var ext = require( path.join(dir.CONFIG, 'ext.js') );
 
 /**
 ========================================================================================================
-  Exports
+  Routing
 ========================================================================================================
 **/
 
-module.exports = {
-  util: require('util'),
-  http: require('http'),
-  url: require('url'),
-  express: require('express'),
-  async: require('async'),
-  fs: require('fs'),
-  bodyParser: require("body-parser"),
-  //os: require('os'),
-  unirest: require('unirest')
-  //formidable: require('formidable')
+module.exports = function (req, res) {
+  console.log((req.body.artistname));
+  res.sendFile(path.join(dir.VIEW, 'artist'));
 };
