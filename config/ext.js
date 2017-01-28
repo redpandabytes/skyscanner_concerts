@@ -18,8 +18,8 @@ module.exports = {
   url: require('url'),
   express: require('express'),
   async: require('async'),
-  fs: require('fs')
+  fs: require('fs'),
   //os: require('os'),
-  //unirest: require('unirest'),
+  unirest: require('unirest')
   //formidable: require('formidable')
 };

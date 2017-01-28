@@ -33,5 +33,5 @@ app.get('/', function(req, res) {
 });
 
 app.get('/test', function(req, res) {
-  require( path.join(dir.CONTROLLER, 'test.js') )(req, res);
+  require( path.join(dir.CONTROLLER, 'api-skyscanner.js') )(req, res);
 });
