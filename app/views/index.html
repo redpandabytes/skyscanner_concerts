@@ -14,14 +14,14 @@
                     Your favourite artists. Only the best prices.
                 </p>
             </div>
-            Include similar artists
+            <p style="margin: 15px auto 0px auto; text-align: center; font-size: 16px;"><input type="checkbox" name="similarBool" value="true" checked/>Include similar artists</p>
         </header>
 
         <main>
-            <form action="results" type="post">
+            <form action="artist" type="post">
             <section id="searchBox">
                 <div id="searchControls">
-                    <span class="light">get me tickets for: </span><input type="text" onfocus="clearSheeran(this)" value="Ed Sheeran" />
+                    <span class="light">get me tickets for: </span><input type="text" name="artist" id="artist" onfocus="clearSheeran(this)" value="Ed Sheeran" />
                 </div>
 
                 <div id="searchButton">
