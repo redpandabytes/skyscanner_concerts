@@ -34,7 +34,7 @@ console.log('Server mode ' + server.MODE + ' listening port ' + server.PORT );
 
 //Manual routing
 app.get('/', function(req, res) {
-  require( path.join(dir.CONTROLLER, 'home.js') )(req, res);
+  require( path.join(dir.CONTROLLER, 'index.js') )(req, res);
 });
 
 app.get('/test', function(req, res) {
