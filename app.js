@@ -8,6 +8,7 @@ var dir = require('./config/dir.js');
 var server = require( path.join(dir.CONFIG, 'server.js') )();   //server config, possible: manual override input
 var ext = require( path.join(dir.CONFIG, 'ext.js') );          //external modules
 var roam = require( path.join(dir.CONFIG, 'roam.js') );
+var bodyParser = ext.bodyParser; //Converts the HTML into a printable thing in the function
 
 /**
 ========================================================================================================
@@ -22,6 +23,10 @@ var app = ext.express();
 app.use('/public', ext.express.static('public'));  // serve public files
 app.use('/vendors', ext.express.static('vendors'));
 console.log('Public assets ready to be served.');
+
+
+//Note that in version 4 of express, express.bodyParser() was deprecated in favor of a separate 'body-parser' module.
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 //Express.js server
 var httpServer = app.listen(server.PORT, "0.0.0.0");
@@ -42,4 +47,7 @@ app.get('/artist', function(req, res) {
 
 app.get('/results', function(req, res) {
     require( path.join(dir.CONTROLLER, 'results.js') )(req, res);
+});
+app.post('/artist', function(req, res) {
+  console.log((req.body.artistname));
 });
