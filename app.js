@@ -45,6 +45,13 @@ app.get('/test2', function(req, res) {
   require( path.join(dir.CONTROLLER, 'test.js') )(req, res);
 });
 
+app.get('/artist', function(req, res) {
+    require( path.join(dir.CONTROLLER, 'artist.js') )(req, res);
+});
+
+app.get('/results', function(req, res) {
+    require( path.join(dir.CONTROLLER, 'results.js') )(req, res);
+});
 app.post('/artist', function(req, res) {
   require( path.join(dir.CONTROLLER, 'artist.js') )(req, res);
 });
