@@ -15,6 +15,5 @@ var ext = require( path.join(dir.CONFIG, 'ext.js') );
 **/
 
 module.exports = function (req, res) {
-  console.log((req.body.artistname));
-  res.sendFile(path.join(dir.VIEW, 'artist'));
+  console.log((req.query['artist']));
 };
