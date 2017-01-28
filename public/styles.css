@@ -1,0 +1,274 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-family: "Open Sans", "Helvetica", sans-serif;
+}
+
+header{
+    color: #fff;
+    font-size: 36px;
+    padding-top: 10px;
+    height: 30%;
+    min-height: 240px;
+    width: 100%;
+    background-image: url('crowd_small.png');
+    overflow: hidden;
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+}
+
+header a{
+    color: #fff;
+    text-decoration: none;
+}
+
+#name{
+    padding-left: 3%;
+}
+
+.light{
+    font-weight: lighter;
+}
+
+.normal{
+    font-weight: normal;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+#tagline{
+    font-family: "Open Sans Light";
+    font-style: italic;
+    width: 80%;
+    margin-left: auto;
+    padding: 0;
+    margin-right: auto;
+}
+
+p.center{
+    text-align: center;
+}
+
+main{
+    width: 70%;
+    margin: -30px auto 0 auto;
+}
+
+
+
+form{
+    display: inline;
+}
+
+#searchBox{
+    margin: 0 auto;
+    width: 92%;
+    color: #989898;
+    border-radius: 10px;
+    border: 1px solid #000;
+    min-height: 60px;
+    background-color: #fff;
+    font-size: 36px;
+    -webkit-box-shadow: 0px 0px 45px -3px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 45px -3px rgba(0,0,0,1);
+    box-shadow: 0px 0px 45px -3px rgba(0,0,0,1);
+}
+
+#searchBox img{
+    outline: none;
+    border: none;
+}
+
+#searchControls{
+    text-indent: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -2px;
+    width: 80%;
+}
+
+#searchControls form{
+    width: 100%;
+}
+
+input[type='text']{
+    text-indent: 4px;
+    background: none;
+    border: 0;
+    font-size: 36px;
+    color: #393838;
+    outline: none;
+}
+
+#searchButton{
+    width: 50px;
+    height: 50px;
+    /*margin-top: -50px; !* I'm sorry lol *!*/
+    display: block;
+    float: right;
+}
+
+#recentSearches{
+    margin-top: 30px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#recentHeader{
+    text-align: center;
+    font-size: 32px;
+    letter-spacing: -2px;
+}
+
+#searches{
+    margin-top: 18px;
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.searchItem{
+    background-color: lightgray;
+    width: 345px;
+    height: 120px;
+    margin: 10px;
+    border: 1px solid black;
+}
+
+.itemPicture{
+    width: 345px;
+    height: 90px;
+    background-color: red;
+}
+
+.itemPicture img{
+    width: 345px;
+    height: 90px;
+}
+
+.itemName{
+    width: 345px;
+    height: 28px;
+    font-weight: lighter;
+    text-indent: 10px;
+    padding-top: 2px;
+}
+
+input[type=submit] {
+
+    background:url("search.svg");
+    width: 60px;
+    height: 60px;
+    margin-left: -10px;
+    margin-top: -3px;
+    border: none;
+}
+
+#results{
+
+}
+
+.result{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    color: #000;
+    border-radius: 3px;
+    border: 1px solid #afafaf;
+    height: 125px;
+    background-color: #fff;
+    font-size: 36px;
+    -webkit-box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.58);
+    -moz-box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.58);
+    box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.58);
+}
+
+.resultPicture{
+    width: 125px;
+    height: 125px;
+    float: left;
+}
+
+.gigInfo{
+    width: calc(100% - 212px);
+    padding-left: 12px;
+    margin-right: 10px;
+    height: 125px;
+    float: left;
+}
+
+.resultButtons{
+    width: 65px;
+    height: 125px;
+    float: left;
+    letter-spacing: -2px;
+    font-size: 22px;
+    color: #fff;
+}
+
+.gigInfo .artistName{
+    font-size: 36px;
+    font-weight: lighter;
+}
+
+.gigDate{
+    font-style: italic;
+    margin-top: -5px;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.gigLocation{
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+
+.buyNowBtn{
+    height: 65px;
+    background-color: #468cd2;
+}
+
+.mobileAlertBtn{
+    background-color: #384959;
+    height: 60px;
+}
+
+@media screen and (max-width: 750px){
+    main{
+        width: 95%;
+    }
+    #tagline{
+        font-size: 60%;
+        margin-top: 60px;
+    }
+    .resultPicture{
+        display: none;
+    }
+    .gigInfo{
+        width: calc(100% - 200px);
+    }
+    .artistName{
+        font-size: 80% !important;
+    }
+    .gigDate{
+        font-size: 60% !important;
+    }
+    .gigLocation{
+        font-size: 15px !important;
+    }
+    .resultButtons{
+        width: 80px;
+        float: right;
+    }
+}

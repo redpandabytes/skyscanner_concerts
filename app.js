@@ -37,5 +37,9 @@ app.get('/test', function(req, res) {
 });
 
 app.get('/artist', function(req, res) {
-  require( path.join(dir.CONTROLLER, 'artist.js') )(req, res);
+    require( path.join(dir.CONTROLLER, 'artist.js') )(req, res);
+});
+
+app.get('/results', function(req, res) {
+    require( path.join(dir.CONTROLLER, 'results.js') )(req, res);
 });
