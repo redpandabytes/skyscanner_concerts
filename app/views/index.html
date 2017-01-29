@@ -40,26 +40,6 @@
                         <div class="itemPicture"><img src="public/artists/ed.jpg" /></div>
                         <div class="itemName">Ed Sheeran</div>
                     </div>
-                    <div class="searchItem">
-                        <div class="itemPicture"><img src="public/artists/ed.jpg" /></div>
-                        <div class="itemName">Ed Sheeran</div>
-                    </div>
-                    <div class="searchItem">
-                        <div class="itemPicture"><img src="public/artists/ed.jpg" /></div>
-                        <div class="itemName">Ed Sheeran</div>
-                    </div>
-                    <div class="searchItem">
-                        <div class="itemPicture"><img src="public/artists/ed.jpg" /></div>
-                        <div class="itemName">Ed Sheeran</div>
-                    </div>
-                    <div class="searchItem">
-                        <div class="itemPicture"><img src="public/artists/ed.jpg" /></div>
-                        <div class="itemName">Ed Sheeran</div>
-                    </div>
-                    <div class="searchItem">
-                        <div class="itemPicture"><img src="public/artists/ed.jpg" /></div>
-                        <div class="itemName">Ed Sheeran</div>
-                    </div>
                 </section>
             </section>
         </main>
@@ -88,7 +68,9 @@
         });
 
         function displayItem(item){
-            $('#searches').prepend('<div class="searchItem new-item"> <div class="itemPicture"><img src="public/artists/ed.jpg" /></div> <div class="itemName">Ed Sheeran</div> </div>');
+            console.log(item);
+            item = JSON.parse(item);
+            $('#searches').prepend('<div class="searchItem new-item"> <div class="itemPicture"><img src="public/music.svg" /></div> <div class="itemName">' + item.concert.artist + ' - ' + item.flight.destination + ' ( ' + item.flight.carrier + ')</div> </div>');
         }
     </script>
 </html>

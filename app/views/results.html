@@ -3,6 +3,8 @@
     <head>
         <link rel="stylesheet" href="public/styles.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
     </head>
     <body>
         <header>
@@ -27,134 +29,8 @@
 
             <!--</section>-->
                 <section id="results">
-                    <div class="result">
-                        <div class="resultPicture">
-                            <img src="public/artists/ed_small.png" />
-                        </div>
-                        <div class="gigInfo">
-                            <div class="artistName">
-                                Ed Sheeran
-                            </div>
-                            <div class="gigDate">
-                                28th February 2017
-                            </div>
-                            <div class="gigLocation">
-                                <img src="public/location.svg" width="15" height="15" />
-                                Berlin, Germany
-                            </div>
-                        </div>
-                        <div class="resultButtons">
-                            <div class="buyNowBtn">
-                                <img src="public/cart.svg" width="60" height="60"/>
-                            </div>
-                            <div class="mobileAlertBtn">
-                                <img src="public/smartphone.svg" width="60" height="60"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="result">
-                        <div class="resultPicture">
-                            <img src="public/artists/ed_small.png" />
-                        </div>
-                        <div class="gigInfo">
-                            <div class="artistName">
-                                Ed Sheeran
-                            </div>
-                            <div class="gigDate">
-                                28th February 2017
-                            </div>
-                            <div class="gigLocation">
-                                <img src="public/location.svg" width="15" height="15" />
-                                Berlin, Germany
-                            </div>
-                        </div>
-                        <div class="resultButtons">
-                            <div class="buyNowBtn">
-                                <img src="public/cart.svg" width="60" height="60"/>
-                            </div>
-                            <div class="mobileAlertBtn">
-                                <img src="public/smartphone.svg" width="60" height="60"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="result">
-                        <div class="resultPicture">
-                            <img src="public/artists/ed_small.png" />
-                        </div>
-                        <div class="gigInfo">
-                            <div class="artistName">
-                                Ed Sheeran
-                            </div>
-                            <div class="gigDate">
-                                28th February 2017
-                            </div>
-                            <div class="gigLocation">
-                                <img src="public/location.svg" width="15" height="15" />
-                                Berlin, Germany
-                            </div>
-                        </div>
-                        <div class="resultButtons">
-                            <div class="buyNowBtn">
-                                <img src="public/cart.svg" width="60" height="60"/>
-                            </div>
-                            <div class="mobileAlertBtn">
-                                <img src="public/smartphone.svg" width="60" height="60"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="result">
-                        <div class="resultPicture">
-                            <img src="public/artists/ed_small.png" />
-                        </div>
-                        <div class="gigInfo">
-                            <div class="artistName">
-                                Ed Sheeran
-                            </div>
-                            <div class="gigDate">
-                                28th February 2017
-                            </div>
-                            <div class="gigLocation">
-                                <img src="public/location.svg" width="15" height="15" />
-                                Berlin, Germany
-                            </div>
-                        </div>
-                        <div class="resultButtons">
-                            <div class="buyNowBtn">
-                                <img src="public/cart.svg" width="60" height="60"/>
-                            </div>
-                            <div class="mobileAlertBtn">
-                                <img src="public/smartphone.svg" width="60" height="60"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="result">
-                        <div class="resultPicture">
-                            <img src="public/artists/ed_small.png" />
-                        </div>
-                        <div class="gigInfo">
-                            <div class="artistName">
-                                Ed Sheeran
-                            </div>
-                            <div class="gigDate">
-                                28th February 2017
-                            </div>
-                            <div class="gigLocation">
-                                <img src="public/location.svg" width="15" height="15" />
-                                Berlin, Germany
-                            </div>
-                        </div>
-                        <div class="resultButtons">
-                            <div class="buyNowBtn">
-                                <img src="public/cart.svg" width="60" height="60"/>
-                            </div>
-                            <div class="mobileAlertBtn">
-                                <img src="public/smartphone.svg" width="60" height="60"/>
-                            </div>
-                        </div>
-                    </div>
 
                 </section>
-            </section>
         </main>
 
     </body>
@@ -165,17 +41,44 @@
             x.value = "";
         }
 
-        /* Pusher Feed */
-        var app = new PusherPlatform.App({
-          appId: '0147601c-3f6e-4922-ad97-5357f96b1955',
-        });
+        $( document ).ready(function() {
 
-        var adventuresFeed = app.feed('adventures');
+            /* Pusher Feed */
+            var app = new PusherPlatform.App({
+                appId: '0147601c-3f6e-4922-ad97-5357f96b1955',
+            });
 
-        adventuresFeed.subscribe({
-          onOpen: () => console.log('Connection established'),
-          onItem: item => console.log('Item:', item),
-          onError: error => console.error('Error:', error),
+            var adventuresFeed = app.feed('adventures');
+
+            adventuresFeed.subscribe({
+                onOpen: () => console.log('Connection established'),
+                onItem: item => outputConcert(item),
+                onError: error => console.error('Error:', error),
+            });
+
+            var outputConcert = function (item) {
+                console.log('Item: ', item);
+                $('#results').append('<div class="result">' +
+                    '                            <div class="resultPicture"><img src="public/concert.svg" /></div>' +
+                    '                        <div class="gigInfo">' +
+                    '                            <div class="artistName">' + item.body.concert.artist + ' - <b>£' + generatePrice(item.body.flights.price) + '</b></div>' +
+                    '                            <div class="gigDate">' + item.body.concert.date + '</div>' +
+                    '                            <div class="gigLocation"><img src="public/location.svg" width="15" height="15" />' + item.body.concert.city + ', ' + item.body.concert.country + ' - ' + item.body.flights.carrier + '(£' + item.body.flights.price + ')</div>' +
+                    '                        </div>' +
+                    '                        <div class="resultButtons">' +
+                    '                            <div class="buyNowBtn">' +
+                    '                                <img src="public/cart.svg" width="60" height="60"/>' +
+                    '                            </div>' +
+                    '                            <div class="mobileAlertBtn">' +
+                    '                                <img src="public/smartphone.svg" width="60" height="60"/>' +
+                    '                            </div>' +
+                    '                        </div>' +
+                    '                    </div>');
+            };
+
+            var generatePrice = function(price){
+                return price + Math.floor(Math.random() * 90) + 50;
+            }
         });
     </script>
 </html>

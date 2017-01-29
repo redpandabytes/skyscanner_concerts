@@ -57,6 +57,7 @@ module.exports = function (artist, callback) {
                   var scrappedPrice = 60;
                   console.log("Scraped info: " + scrappedPrice);
                   ourResponse.push({'date': item.start.date,
+                      'artist' : artist,
                     'city': item.venue.metroArea.displayName,
                     'country': item.venue.metroArea.country.displayName,
                     'price': scrappedPrice

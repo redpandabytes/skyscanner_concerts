@@ -111,7 +111,8 @@ module.exports = function (req, res) {
               if (("InboundLeg" in flight)) {
                 data = {'concert': {
                   'date': concert.date,
-                  'city': concert.city,
+                    'artist' : concert.artist,
+                    'city': concert.city,
                   'country': concert.country,
                   'price': concert.price
                   },
@@ -131,7 +132,8 @@ module.exports = function (req, res) {
               else if (("OutboundLeg" in flight)) {
                 data = {'concert': {
                   'date': concert.date,
-                  'city': concert.city,
+                    'artist' : concert.artist,
+                    'city': concert.city,
                   'country': concert.country,
                   'price': concert.price
                   },
