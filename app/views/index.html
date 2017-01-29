@@ -58,7 +58,7 @@
 
             var adventuresFeed = app.feed('livesearch');
 
-            app.g
+
 
             adventuresFeed.subscribe({
                 onOpen: () => console.log('Connection established'),
@@ -68,8 +68,8 @@
         });
 
         function displayItem(item){
-            console.log(item);
             item = JSON.parse(item);
+            console.log(item);
             $('#searches').prepend('<div class="searchItem new-item"> <div class="itemPicture"><img src="public/music.svg" /></div> <div class="itemName">' + item.concert.artist + ' - ' + item.flight.destination + ' ( ' + item.flight.carrier + ')</div> </div>');
         }
     </script>
