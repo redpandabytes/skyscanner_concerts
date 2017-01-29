@@ -3,6 +3,8 @@
     <head>
         <link rel="stylesheet" href="public/styles.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="https://js.pusher.com/platform/latest/pusher-platform.js"></script>
     </head>
     <body>
         <header>
@@ -67,6 +69,26 @@
         function clearSheeran(x) {
 //            x.style.background = "yellow";
             x.value = "";
+        }
+
+        $( document ).ready(function() {
+            var app = new PusherPlatform.App({
+                appId: '0147601c-3f6e-4922-ad97-5357f96b1955',
+            });
+
+            var adventuresFeed = app.feed('livesearch');
+
+            app.g
+
+            adventuresFeed.subscribe({
+                onOpen: () => console.log('Connection established'),
+                onItem: item => displayItem(item),
+                onError: error => console.error('Error:', error)
+            });
+        });
+
+        function displayItem(item){
+            $('#searches').prepend('<div class="searchItem new-item"> <div class="itemPicture"><img src="public/artists/ed.jpg" /></div> <div class="itemName">Ed Sheeran</div> </div>');
         }
     </script>
 </html>
