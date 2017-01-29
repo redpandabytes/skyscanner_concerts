@@ -45,6 +45,16 @@ var updateFeed = function(data) {
     if (error) throw new Error(error);
     console.log(body);
   });
+
+  var options2 = { method: 'POST',
+    url: 'https://api.private-beta-1.pusherplatform.com:443/apps/' + cons.API_KEY_PUSHER + '/feeds/livesearch',
+    body: { items: data },  //[ { message: 'test' }, { message: 'testy' } ]
+    json: true };
+
+  ext.request(options2, function (error, response, body) {
+    if (error) throw new Error(error);
+    console.log(body);
+  });
 }
 
 var getCarrierNameFromId =  function (id, carriers) {
@@ -56,11 +66,22 @@ var getCarrierNameFromId =  function (id, carriers) {
   return "Unknown";
 }
 
+var updateLiveSearches = function(data) {
+  var options = { method: 'POST',
+    url: 'https://api.private-beta-1.pusherplatform.com:443/apps/' + cons.API_KEY_PUSHER + '/feeds/livesearch',
+    body: { items: data },  //[ { message: 'test' }, { message: 'testy' } ]
+    json: true };
+
+  ext.request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    console.log(body);
+  });
+}
+
 
 module.exports = function (req, res) {
   var origin = "Edinburgh";   //TODO guess by geolocalisation
   var artistRequested = req.query['artist'];
-
   console.log(artistRequested);
 
   APIspotify(artistRequested, artistSet => {
@@ -70,6 +91,11 @@ module.exports = function (req, res) {
           console.log(err);
           return;
         }
+
+        //redirect results page
+        res.sendFile(path.join(dir.VIEW, 'results.html'));
+
+        //update feed
         concertSet.forEach(concert => {
           var inboundDate = concert.date;   //TODO interval time for in/out bound
           var outboundDate = concert.date;
@@ -91,8 +117,8 @@ module.exports = function (req, res) {
                   },
                   'flights': {
                     'carrier': getCarrierNameFromId(flight.InboundLeg.CarrierIds[0], carriers),
-                    'origin': "",
-                    'destination': "",
+                    'origin': origin,
+                    'destination': concert.city,
                     'date': flight.InboundLeg.DepartureDate,
                     'price': flight.MinPrice
                   }
@@ -111,8 +137,8 @@ module.exports = function (req, res) {
                   },
                   'flights': {
                     'carrier': getCarrierNameFromId(flight.OutboundLeg.CarrierIds[0], carriers),
-                    'origin': "",
-                    'destination': "",
+                    'origin': origin,
+                    'destination': concert.city,
                     'date': flight.OutboundLeg.DepartureDate,
                     'price': flight.MinPrice
                   }
@@ -123,8 +149,6 @@ module.exports = function (req, res) {
                 updateFeed([data]);
               }
             }
-
-            //console.log(data);
             //console.log(require('util').inspect(flightSet, { depth: null }));
             //console.log(flightSet);
           });
