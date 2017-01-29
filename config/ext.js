@@ -12,6 +12,10 @@
 ========================================================================================================
 **/
 
+function isEmptyObject(obj) {
+  return !Object.keys(obj).length;
+}
+
 module.exports = {
   util: require('util'),
   http: require('http'),
@@ -20,8 +24,9 @@ module.exports = {
   async: require('async'),
   fs: require('fs'),
   bodyParser: require("body-parser"),
+  request: require("request"),
   //os: require('os'),
   unirest: require('unirest'),
-    jsdom: require('jsdom')
+  isEmptyObject: isEmptyObject
   //formidable: require('formidable')
 };

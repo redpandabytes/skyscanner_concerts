@@ -158,10 +158,24 @@
         </main>
 
     </body>
+    <script src="https://js.pusher.com/platform/latest/pusher-platform.js"></script>
     <script>
         function clearSheeran(x) {
 //            x.style.background = "yellow";
             x.value = "";
         }
+
+        /* Pusher Feed */
+        var app = new PusherPlatform.App({
+          appId: '0147601c-3f6e-4922-ad97-5357f96b1955',
+        });
+
+        var adventuresFeed = app.feed('adventures');
+
+        adventuresFeed.subscribe({
+          onOpen: () => console.log('Connection established'),
+          onItem: item => console.log('Item:', item),
+          onError: error => console.error('Error:', error),
+        });
     </script>
 </html>

@@ -18,9 +18,13 @@
   "dependencies": {
     "async": "^2.1.4",
     "body-parser": "^1.16.0",
+    "es6-promise": "^4.0.5",
     "express": "^4.14.0",
+    "extend": "^3.0.0",
     "fs": "0.0.1-security",
     "http": "0.0.0",
+    "jsonwebtoken": "^7.2.1",
+    "pusher-platform": "^0.2.0",
     "unirest": "^0.5.1",
     "url": "^0.11.0",
     "util": "^0.10.3"

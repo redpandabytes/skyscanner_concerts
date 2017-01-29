@@ -16,5 +16,4 @@ var ext = require( path.join(dir.CONFIG, 'ext.js') );
 
 module.exports = function (req, res) {
   res.sendFile(path.join(dir.VIEW, 'test.html'));
-  
 };

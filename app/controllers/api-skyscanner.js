@@ -17,8 +17,10 @@ var getLocationId = function(location, callback) {
   ext.unirest.get(url_query)
   .end(function (response) {
     var locations = JSON.parse(response["raw_body"]);
-    //console.log(locations["Places"][0]['CityId']);
-    callback(locations["Places"][0]['CityId']);
+    if (ext.isEmptyObject(locations["Places"])) {
+      return callback("Not known city, no id", null);
+    }
+    callback(null, locations["Places"][0]['CityId']);
   });
 }
 
@@ -38,8 +40,11 @@ var getFlights = function(origin, destination, inboundDate, outboundDate, callba
 **/
 
 module.exports = function (origin, destination, inboundDate, outboundDate, callback) {
-  getLocationId(origin, function(originId) {
-    getLocationId(destination, function(destinationId) {
+  getLocationId(origin, function(errOrigin, originId) {
+    getLocationId(destination, function(errDestination, destinationId) {
+      if (errOrigin || errDestination) {
+        console.log("Errors:" + errOrigin + " and " + errDestination);
+      }
       getFlights(originId, destinationId, inboundDate, outboundDate, flightSet => {
         callback(flightSet);
       });

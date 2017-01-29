@@ -8,8 +8,6 @@ var path = require('path');
 var dir = require('../../config/dir.js');
 var ext = require( path.join(dir.CONFIG, 'ext.js') );
 var cons = require( path.join(dir.CONFIG, 'cons.js') );
-var DOMParser = require("jsdom").jsdom;
-
 
 var getArtistIdByName = function(name, callback){
     var url_query = "http://api.songkick.com/api/3.0/search/artists.json?query=" + name + "&apikey=io09K9l3ebJxmxe2";
@@ -35,50 +33,68 @@ var getPriceByEventURL = function(url, callback){
         });
 }
 
-var getFlights = function(origin, destination, inboundDate, outboundDate) {
-    var url_query = url_browse_quotes + origin + "/" + destination + "/" + inboundDate + "/" + outboundDate + "?apiKey=" + cons.API_KEY_SKYSCANNER; ///CDG/2017-02-11/2017-02-15?apiKey
-    ext.unirest.get(url_query)
-        .end(function (response) {
-            console.log(response.body);
-        });
-}
-
 /**
  ========================================================================================================
  Routing
  ========================================================================================================
  **/
 
-module.exports = function (req, res) {
-    var name = "ed sheeran";
-    var id = 2083334; // ed sheeran
+module.exports = function (artist, callback) {
+    //var name = "ed sheeran";
+    //var id = 2083334; // ed sheeran
+    getArtistIdByName(artist, function(response) {
+        var artistID = response.resultsPage.results.artist[0].id;
+        getEventsByID(artistID, function(response) {
+            var ourResponse = [];
+            var results = response.resultsPage.results;
 
-    getArtistIdByName(name, function(response) {
-        console.log(response.resultsPage.results.artist[0].id);
-        // res.sendFile(path.join(dir.VIEW, 'home.html'));
-    });
-
-    getEventsByID(id, function(response) {
-        var ourResponse = [];
-        response.resultsPage.results.event.forEach( function(item) {
-            getPriceByEventURL(item.uri, function (priceInfo){
-                var document = jsdom(priceInfo);
-                var window = document.defaultView();
-                console.log(window.document.documentElement.outerHTML);
-
-                // if(htmlDoc.getElementsByClassName("price").length > 0){
-                //     // console.log("Scraped info: " + priceInfo);
-                //     // console.log(priceInfo.gettype());
-                //     // ourResponse.push({'date': item.start.date,
-                //     //     'city': item.venue.metroArea.displayName,
-                //     //     'country': item.venue.metroArea.country.displayName
-                //     // });
-                //     console.log("found something with price info")
-                // }
-
-            });
+            if (ext.isEmptyObject(results)) {
+              return callback("Empty concertSet", null);
+            }
+            ext.async.forEach(results.event, function (item, next){
+                console.log(item); // print the key
+                getPriceByEventURL(item.uri, function (priceInfo) {
+                  var scrappedPrice = 60;
+                  console.log("Scraped info: " + scrappedPrice);
+                  ourResponse.push({'date': item.start.date,
+                    'city': item.venue.metroArea.displayName,
+                    'country': item.venue.metroArea.country.displayName,
+                    'price': scrappedPrice
+                  });
+                  console.log("added");
+                  // tell async that that particular element of the iterator is done
+                  next()
+                });
+             }, function(err) {
+                  callback(null, ourResponse);
+                  console.log("Finished");
+               });
+            //
+            // results.event.forEach( function(item) {
+            //     getPriceByEventURL(item.uri, function (priceInfo){
+            //       /*
+            //         var document = jsdom(priceInfo);
+            //         var window = document.defaultView();
+            //         console.log(window.document.documentElement.outerHTML);*/
+            //
+            //         //if(htmlDoc.getElementsByClassName("price").length > 0)
+            //         if(true) { //TODO
+            //           var scrappedPrice = 60;
+            //           console.log("Scraped info: " + scrappedPrice);
+            //           ourResponse.push({'date': item.start.date,
+            //             'city': item.venue.metroArea.displayName,
+            //             'country': item.venue.metroArea.country.displayName,
+            //             'price': scrappedPrice
+            //           });
+            //           console.log("added");
+            //         }
+            //
+            //     });
+            // }); //OK synchronous
+            // console.log(ourResponse);
+            // callback(null, ourResponse);
+            // console.log("Finished");
         });
-        console.log(ourResponse);
-        console.log("Finished");
+
     });
 };
