@@ -22,11 +22,12 @@ var getLocationId = function(location, callback) {
   });
 }
 
-var getFlights = function(origin, destination, inboundDate, outboundDate) {
+var getFlights = function(origin, destination, inboundDate, outboundDate, callback) {
   var url_query = url_browse_quotes + origin + "/" + destination + "/" + inboundDate + "/" + outboundDate + "?apiKey=" + cons.API_KEY_SKYSCANNER; ///CDG/2017-02-11/2017-02-15?apiKey
   ext.unirest.get(url_query)
   .end(function (response) {
-    console.log(response.body);
+    var flightSet = response.body;  //TODO filter narrow it
+    callback(flightSet);
   });
 }
 
@@ -36,17 +37,12 @@ var getFlights = function(origin, destination, inboundDate, outboundDate) {
 ========================================================================================================
 **/
 
-module.exports = function (req, res) {
-  var origin = "Edinburgh";
-  var destination = "Paris";
-
-  var inboundDate = "2017-02-11";
-  var outboundDate = "2017-02-11";
-
+module.exports = function (origin, destination, inboundDate, outboundDate, callback) {
   getLocationId(origin, function(originId) {
     getLocationId(destination, function(destinationId) {
-      getFlights(originId, destinationId, inboundDate, outboundDate);
+      getFlights(originId, destinationId, inboundDate, outboundDate, flightSet => {
+        callback(flightSet);
+      });
     });
   });
-  res.sendFile(path.join(dir.VIEW, 'home.html'));
 };
