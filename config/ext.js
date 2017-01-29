@@ -21,6 +21,7 @@ module.exports = {
   fs: require('fs'),
   bodyParser: require("body-parser"),
   //os: require('os'),
-  unirest: require('unirest')
+  unirest: require('unirest'),
+    jsdom: require('jsdom')
   //formidable: require('formidable')
 };
